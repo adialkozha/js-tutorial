@@ -1,15 +1,5 @@
 'use strict'
-// let modalhide = document.getElementById('modal');
-// let item = document.getElementById('item')
-// let X = document.getElementById('X')
-// function hide(){
-//    modalhide.style.display = "none";
-// };
-// function show(){
-//    modalhide.style.display = "block"; 
-// };
-// X.addEventListener("click",hide);
-// item-list.addEventListener("click",show);
+
 
 window.onload = function(){
    let data = fetch('https://rickandmortyapi.com/api/character/').then(response => {
@@ -19,10 +9,8 @@ window.onload = function(){
       else{
          return response.json()
       }
-
-      
-   
    }).then(json => renderList(json)).catch(err=>console.log(err))
+   this.document.getElementById("loadwritter").removeAttribute('h1')
    function renderList(data){
       let rawData = data
       let list = [...rawData.results]
@@ -30,12 +18,11 @@ window.onload = function(){
       console.log(info)
       document.querySelector('.total').innerText = info.count 
       document.querySelector('.current').innerText = list.length
-
       const listContainer = document.querySelector('#list')
-      
       list.forEach((el,i,arr)=>{
             console.log(el)
-            listContainer.innerHTML += `<div class="list-item" id = "item">
+            listContainer.innerHTML += 
+            `<div class="list-item" data-id = "${i}">
             <div>${i+1}. ${el.name}</div>
             <div>
               <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -46,10 +33,15 @@ window.onload = function(){
               </svg>
             </div>
           </div>`
-
-      
       })
    }
+   let htmlList = document.querySelectorAll('.list-item')
+   htmlList.forEach(el=>{
+      console.log(el)
+      el.addEventListener('click', e => {
+         console.log(e)
+      })
+   })
 }
 
 
